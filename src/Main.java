@@ -12,6 +12,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * Hoofdklasse van de Euromoon Command Line applicatie.
+ *
+ * Deze klasse biedt een menu waarmee passagiers geregistreerd kunnen worden,
+ * reizen aangemaakt worden, treinen aan reizen gekoppeld kunnen worden,
+ * tickets verkocht kunnen worden en boardinglijsten kunnen worden afgedrukt.
+ *
+ * De applicatie draait in een loop totdat de gebruiker kiest om af te sluiten.
+ *
+ * Er wordt gebruik gemaakt van:
+ * - Passagier, Trein, Wagon, Locomotief, Reisklasse
+ * - Reis, Station, Ticket
+ *
+ * Foutcontrole wordt toegepast bij het kiezen van reizen, passagiers, treinen en tickets.
+ */
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -48,6 +63,9 @@ public class Main {
         System.out.println("Applicatie afgesloten.");
     }
 
+    /**
+     * Toont het hoofdmenu van de applicatie.
+     */
     private static void toonMenu() {
         System.out.println("\n=== EUROMOON MENU ===");
         System.out.println("1. Registreer passagier");
@@ -59,6 +77,10 @@ public class Main {
         System.out.print("Keuze: ");
     }
 
+    /**
+     * Registreert een nieuwe passagier in het systeem.
+     * Controleert of de passagier al bestaat op basis van rijksregisternummer.
+     */
     private static void registreerPassagier() {
         System.out.print("Voornaam: ");
         String voornaam = scanner.nextLine();
@@ -91,6 +113,10 @@ public class Main {
         System.out.println("Passagier geregistreerd.");
     }
 
+    /**
+     * Maakt een nieuwe reis aan tussen twee stations op een bepaald tijdstip.
+     * Controleert of vertrek en aankomst verschillend zijn.
+     */
     private static void maakReisAan() {
         System.out.print("Vertrekstation: ");
         String vertrek = scanner.nextLine();
@@ -122,6 +148,10 @@ public class Main {
         System.out.println("Reis aangemaakt.");
     }
 
+    /**
+     * Koppelt een trein aan een geselecteerde reis.
+     * Controleert of de reis al een trein heeft.
+     */
     private static void koppelTreinAanReis() {
         Reis reis = kiesReis();
         if (reis == null) return;
@@ -138,6 +168,10 @@ public class Main {
         System.out.println("Trein gekoppeld aan reis.");
     }
 
+    /**
+     * Verkoopt een ticket aan een geselecteerde passagier voor een reis.
+     * Controleert of er plaatsen beschikbaar zijn en of de passagier al een ticket heeft.
+     */
     private static void verkoopTicket() {
         Reis reis = kiesReis();
         if (reis == null) return;
@@ -171,6 +205,10 @@ public class Main {
         }
     }
 
+    /**
+     * Drukt een boardinglijst af voor een geselecteerde reis.
+     * Maakt een tekstbestand met de naam: Vertrek_Aankomst_DatumTijd.txt
+     */
     private static void printBoardingLijst() {
         Reis reis = kiesReis();
         if (reis == null) return;
@@ -210,6 +248,11 @@ public class Main {
         }
     }
 
+    /**
+     * Laat de gebruiker een reis kiezen uit de beschikbare reizen.
+     *
+     * @return de geselecteerde reis of null bij fout/invoer
+     */
     private static Reis kiesReis() {
         if (reizen.isEmpty()) {
             System.out.println("Geen reizen beschikbaar.");
@@ -231,6 +274,11 @@ public class Main {
         }
     }
 
+    /**
+     * Laat de gebruiker een passagier kiezen uit de beschikbare passagiers.
+     *
+     * @return de geselecteerde passagier of null bij fout/invoer
+     */
     private static Passagier kiesPassagier() {
         if (passagiers.isEmpty()) {
             System.out.println("Geen passagiers beschikbaar.");
@@ -252,6 +300,11 @@ public class Main {
         }
     }
 
+    /**
+     * Laat de gebruiker een trein kiezen uit de beschikbare treinen.
+     *
+     * @return de geselecteerde trein of null bij fout/invoer
+     */
     private static Trein kiesTrein() {
         if (treinen.isEmpty()) {
             System.out.println("Geen treinen beschikbaar.");
